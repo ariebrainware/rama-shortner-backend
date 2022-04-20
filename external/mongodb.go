@@ -35,7 +35,7 @@ func GetMongoConn(document string) *mongo.Collection {
 		}
 	}
 
-	collection = client.Database("rama-shortner").Collection(document)
+	collection = client.Database(os.Getenv("MONGO_DATABASE")).Collection(document)
 	err = client.Connect(ctx)
 	if err != nil {
 		log.Error(err)
