@@ -112,7 +112,6 @@ func GetURL(c *gin.Context) {
 		log.Fatal(err)
 	}
 	// Do something with result...
-	// redirectURL := fmt.Sprintf("%s/%s", os.Getenv("ROOT_HOST"), res.URL)
 	c.Redirect(http.StatusTemporaryRedirect, res.URL)
 	return
 }
