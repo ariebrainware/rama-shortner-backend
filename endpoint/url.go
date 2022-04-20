@@ -39,7 +39,7 @@ func ShortURL(c *gin.Context) {
 	// Prepare Insert to MongoDB
 	collection := external.GetMongoConn(os.Getenv("MONGO_COLLECTION"))
 	shortLink := generateShortLink(request.URL)
-	ctx, cancel := context.WithTimeout(context.Background(), 2*time.Second)
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
 	res, err := collection.InsertOne(ctx, bson.D{
 		{"url", request.URL},
@@ -100,7 +100,7 @@ type result struct {
 func GetURL(c *gin.Context) {
 	key := c.Param("key")
 	filter := bson.D{{"short_url", key}}
-	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
 	collection := external.GetMongoConn(os.Getenv("MONGO_COLLECTION"))
 	res := &result{}
