@@ -12,7 +12,6 @@ import (
 )
 
 func GetMongoConn(document string) *mongo.Collection {
-	var clientOptions *options.ClientOptions
 	var client *mongo.Client
 	var collection *mongo.Collection
 	var err error
@@ -20,12 +19,10 @@ func GetMongoConn(document string) *mongo.Collection {
 	defer cancel()
 	if os.Getenv("ENVIRONMENT") != "local" {
 		serverAPIOptions := options.ServerAPI(options.ServerAPIVersion1)
-		clientOptions = options.Client().
-			ApplyURI(fmt.Sprintf("mongodb+srv://ariebrainware:%s@cluster0.h2eai.mongodb.net/%s?retryWrites=true&w=majority", os.Getenv("MONGO_PASSWORD"), os.Getenv("MONGO_DATABASE"))).
-			SetServerAPIOptions(serverAPIOptions)
-		client, err = mongo.Connect(ctx, clientOptions)
+		client, err = mongo.NewClient(options.Client().ApplyURI(fmt.Sprintf("mongodb+srv://ariebrainware:%s@cluster0.h2eai.mongodb.net/%s?retryWrites=true&w=majority", os.Getenv("MONGO_PASSWORD"), os.Getenv("MONGO_DATABASE"))).SetServerAPIOptions(serverAPIOptions))
 		if err != nil {
-			log.Fatal(err)
+			log.Error(err)
+			panic("Failed to connect mongo")
 		}
 	} else {
 		client, err = mongo.NewClient(options.Client().ApplyURI("mongodb://localhost:27017"))
