@@ -1,5 +1,6 @@
 module github.com/ariebrainware/rama-shortner-backend
 
+// +heroku goVersion go1.18
 go 1.18
 
 require (
@@ -8,7 +9,6 @@ require (
 	github.com/itchyny/base58-go v0.2.0
 	github.com/sirupsen/logrus v1.8.1
 	go.mongodb.org/mongo-driver v1.9.0
-	gopkg.in/mgo.v2 v2.0.0-20190816093944-a6b53ec6cb22
 )
 
 require (
