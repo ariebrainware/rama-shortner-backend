@@ -21,7 +21,7 @@ func main() {
 	corsConfig := cors.DefaultConfig()
 	corsConfig.AllowWildcard = true
 	corsConfig.AllowOrigins = strings.Split(allowedOrigins, ",") // contain whitelist domain
-	corsConfig.AllowHeaders = []string{"*", "user", "domain", "verb", "object", "Content-Type", "Accept"}
+	corsConfig.AllowHeaders = []string{"*", "Content-Type", "Accept"}
 	corsConfig.AllowCredentials = true
 	corsConfig.AddAllowMethods("OPTIONS")
 	r.Use(cors.New(corsConfig))
