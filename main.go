@@ -35,8 +35,8 @@ func main() {
 			Data:    nil,
 		})
 	})
-	r.POST("/url/short", endpoint.ShortURL)
-	r.GET("/url/:key", endpoint.GetURL)
+	r.POST("/short", endpoint.ShortURL)
+	r.GET("/:key", endpoint.GetURL)
 
 	port, _ := strconv.Atoi(os.Getenv("PORT"))
 	log.Infof("Service version: %s", os.Getenv("VERSION"))
