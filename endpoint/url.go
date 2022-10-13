@@ -7,6 +7,7 @@ import (
 	"math/big"
 	"net/http"
 	"os"
+	"strconv"
 	"time"
 
 	"github.com/ariebrainware/rama-shortner-backend/external"
@@ -90,7 +91,12 @@ func generateShortLink(initialLink string) string {
 	urlHashBytes := sha256Of(initialLink + u.String())
 	generatedNumber := new(big.Int).SetBytes(urlHashBytes).Uint64()
 	finalString := base58Encoded([]byte(fmt.Sprintf("%d", generatedNumber)))
-	return finalString[:8]
+	_keyLength := os.Getenv("KEY_LENGTH")
+	keyLength, err := strconv.Atoi(_keyLength)
+	if err != nil {
+		log.Error(err)
+	}
+	return finalString[:keyLength]
 }
 
 type result struct {
